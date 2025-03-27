@@ -1,0 +1,17 @@
+services:
+  api-go:
+    image: api-go-dev
+    container_name: api-go-dev
+    user: ${CONTAINER_UID}:${CONTAINER_GID}
+    runtime: runsc
+    build:
+      dockerfile: ./Dockerfile
+      args:
+        CONTAINER_UID: ${CONTAINER_UID}
+        CONTAINER_GID: ${CONTAINER_GID}
+    volumes:
+      - ../api-go:/workspace:cached
+    ports:
+      - 127.0.0.1:${API_GO_PORT}:${API_GO_PORT}
+    environment:
+      APP_PORT: ${API_GO_PORT}

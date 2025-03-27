@@ -1,0 +1,10 @@
+{
+  "editor.tabSize": 2,
+  "editor.indentSize": "tabSize",
+  "editor.detectIndentation": false,
+  "cSpell.words": [
+    "eamodio",
+    "manpages",
+    "runsc"
+  ]
+}

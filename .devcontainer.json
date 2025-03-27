@@ -1,0 +1,16 @@
+{
+  "name": "api-go devcontainer",
+  "dockerComposeFile": "./docker-compose.yml",
+  "service": "api-go",
+  "shutdownAction": "none",
+  "workspaceFolder": "/workspace",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "eamodio.gitlens",
+        "streetsidesoftware.code-spell-checker",
+        "golang.Go"
+      ]
+    }
+  }
+}
