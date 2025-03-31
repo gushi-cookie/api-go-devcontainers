@@ -11,4 +11,6 @@ RUN apt-get update -y && \
 RUN groupadd --gid ${CONTAINER_GID} developer && \
     useradd --uid ${CONTAINER_UID} --gid developer --shell /bin/bash --create-home developer
 
+RUN su -c "mkdir -p ~/.vscode-server" developer
+
 CMD ["sleep", "infinity"]
