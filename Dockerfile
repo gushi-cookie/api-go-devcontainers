@@ -11,6 +11,10 @@ RUN apt-get update -y && \
 RUN groupadd --gid ${CONTAINER_GID} developer && \
     useradd --uid ${CONTAINER_UID} --gid developer --shell /bin/bash --create-home developer
 
+RUN cd /usr/local/bin && \
+    curl -L https://github.com/golang-migrate/migrate/releases/download/v4.18.2/migrate.linux-amd64.tar.gz | tar -xzv migrate && \
+    chmod 555 migrate
+
 RUN su -c "mkdir -p ~/.vscode-server" developer
 
 CMD ["sleep", "infinity"]
