@@ -1,7 +1,7 @@
 {
-  "name": "api-go devcontainer",
+  "name": "Backend devcontainer",
   "dockerComposeFile": "./docker-compose.yml",
-  "service": "api-go",
+  "service": "backend",
   "shutdownAction": "none",
   "workspaceFolder": "/workspace",
   "customizations": {

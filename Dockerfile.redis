@@ -1,0 +1,13 @@
+FROM redis:7.4.2
+
+ARG CONTAINER_UID
+ARG CONTAINER_GID
+RUN test -n "$CONTAINER_UID"
+RUN test -n "$CONTAINER_GID"
+
+RUN usermod -u $CONTAINER_UID redis && \
+    groupmod -g $CONTAINER_GID redis
+
+RUN chown -R redis:redis /data
+
+CMD ["redis-server", "/usr/local/etc/redis/redis.conf"]

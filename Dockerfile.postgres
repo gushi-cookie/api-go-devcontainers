@@ -1,0 +1,9 @@
+FROM postgres:17.4
+
+ARG CONTAINER_UID
+ARG CONTAINER_GID
+RUN test -n "$CONTAINER_UID"
+RUN test -n "$CONTAINER_GID"
+
+RUN usermod -u $CONTAINER_UID postgres && \
+    groupmod -g $CONTAINER_GID postgres

@@ -1,7 +1,36 @@
 services:
-  api-go:
-    image: api-go-dev
-    container_name: api-go-dev
+  redis:
+    container_name: api-go-dev_redis
+    user: ${CONTAINER_UID}:${CONTAINER_GID}
+    build:
+      dockerfile: ./Dockerfile.redis
+      args:
+        CONTAINER_UID: ${CONTAINER_UID}
+        CONTAINER_GID: ${CONTAINER_GID}
+    volumes:
+      - ./configs/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./data/redis:/data
+
+  postgres:
+    container_name: api-go-dev_postgres
+    shm_size: 128mb
+    user: ${CONTAINER_UID}:${CONTAINER_GID}
+    build:
+      dockerfile: ./Dockerfile.postgres
+      args:
+        CONTAINER_UID: ${CONTAINER_UID}
+        CONTAINER_GID: ${CONTAINER_GID}
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+
+  backend:
+    image: api-go-dev_backend
+    container_name: api-go-dev_backend
     user: ${CONTAINER_UID}:${CONTAINER_GID}
     runtime: runsc
     build:
@@ -14,9 +43,10 @@ services:
       - go-data:/go
       - ../api-go:/workspace:cached
     ports:
-      - 127.0.0.1:${API_GO_PORT}:${API_GO_PORT}
-    environment:
-      APP_PORT: ${API_GO_PORT}
+      - 127.0.0.1:${BACKEND_PORT}:80
+    depends_on:
+      - postgres
+      - redis
 
 volumes:
   vscode-server-data:
