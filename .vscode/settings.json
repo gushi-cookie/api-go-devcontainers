@@ -6,6 +6,8 @@
     "eamodio",
     "manpages",
     "runsc",
+    "shellcheck",
+    "timonwong",
     "usermod"
   ]
 }
